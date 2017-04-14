@@ -1,0 +1,2 @@
+//frequency of letters in the English language form most to least common 
+etaoinshrdlcumwfgypbvkjxqz 
