@@ -14,56 +14,6 @@ using std::string;
 using std::ifstream;
 using std::ofstream;
 
-//The maximum fucntion of a two dimentional array
-int my_max_2d(int a[][26], int start , int stop, int row){
-	int temp = 0;
-	//int i = 0;
-	for (int i = start; i < stop ; i++){
-		cout << "in for";
-		if(!(a[row][i] < a[row][temp])){
-				temp = i;
-		}
-	}
-	return temp;
-}
-
-void selection_sort_2d(int a[][26], int start, int stop, int row, bool reverse){
-
-	 //cout<<"enter function\n";
-	int other_row;
-	if( row == 1){ other_row = 0; } else{ other_row = 1; }
-	 //cout<<"setting rows\n";
-	if( reverse == true){
-		while((stop - start) >= 2){
-
-			 //cout<<"before max\n";
-			int k =  my_max_2d( a , start, stop, row);
-			cout <<" after k has been set !\n";
-			std::swap( a[row][stop - 1], a[row][k]);
-			std::swap(a[other_row][stop - 1] ,a[other_row][k] );
-			stop--;
-
-		}
-	}else{
-		while((stop - start) >= 2){
-
-			int k =  my_max_2d( a , start, stop, row);
-			std::swap(a[row][k] , a[row][stop - 1]);
-			std::swap(a[other_row][k] , a[other_row][stop - 1]);
-			stop--;
-
-		}
-	}
-
-}
-
-void remove_newlint(string file){
-
-
-
-
-}
-
 // READ AND CLEAN THE DATA YOU PASS THE IN
 string read(string file_name){
 	//--------------------
@@ -80,17 +30,17 @@ string read(string file_name){
        buffer << file.ifstream::rdbuf();
        std::string encrypted = buffer.str();
 
-	for(int i = 0 ; i < encrypted.length(); i++){
+	/*for(int i = 0 ; i < encrypted.length(); i++){
 		if(encrypted[i] == '\n'){
 			encrypted[i] = ' ';
 		}
-	}
+	}*/
 
 //	getline(inDat,encrypted); //takes what is in the file and saves it to a string called encrypted
 //	inDat.close();
 	while(i != (encrypted.length())) //this is to check to see that the you havent reached the end of the string
 	{
-		if(isalph == isalnum(encrypted[i])) //checks to see if a charicter is not alpha numeric if it is not then it replaces that part of the stirng with a space filtering out punction, however if puction was used in a subsituion my progrm would not be able to decrypt the information
+		if(isalph == isalnum(encrypted[i]) && encrypted[i] != '\t' && encrypted[i] != '\n') //checks to see if a charicter is not alpha numeric if it is not then it replaces that part of the stirng with a space filtering out punction, however if puction was used in a subsituion my progrm would not be able to decrypt the information
 		{
 		encrypted[i]=' ';
 		}
@@ -108,17 +58,6 @@ void write(string str, string file_name){
 	outDat.close();
 	cout<<"Messeage stored in " << file_name << "\n";
 }
-
-
-//void write_alpha(string file){
-
-//	ofstream outkey;
-//	outkey.open(file);
-//	for(int x=0; x<=25 ; x++){
-//		outkey<<(char)alpha[0][x]<<" "<<alpha[1][x]<<"\n"; //out puts the freqency (globals and type defineing all in one program thats what i get for sticking to primitive types
-//   }
-
-//}
 
 
 //count the number of occurances of each letter in the file -> wirtes out to freq.txt
@@ -207,7 +146,7 @@ void decrypt(string encrypted, std::map<char, int> & alpha,  string file_name){
 	for(itr_2 = revAlpha.begin(); itr_2 != revAlpha.end() ; itr_2++)
 	{
 	   mapping[itr_2->second] = engFreq[i];
-	   cout << itr_2->first  << "   "<< itr_2->second <<"\n";
+	  // cout << itr_2->first  << "   "<< itr_2->second <<"\n";
 	   i++;
 	//	cout<<count++;
 	}
@@ -217,14 +156,15 @@ void decrypt(string encrypted, std::map<char, int> & alpha,  string file_name){
 	for(itr_3 = mapping.begin(); itr_3 != mapping.end(); itr_3++)
 	{
 	   mapping_2[itr_3->second] = itr_3->first;
-	   cout << itr_3->first << itr_3->second <<"\n";
+	  // cout << itr_3->first << itr_3->second <<"\n";
 	}
 	cout<<std::endl;
-
+/*
 	for(itr_4 = mapping_2.begin(); itr_4 != mapping_2.end(); itr_4++)
 	{
 	   cout << itr_4->first << itr_4->second <<"\n";
 	}
+*/
 	cout<<std::endl;
 	i =0;
 	cout << "replacing stuff\n";
@@ -232,7 +172,7 @@ void decrypt(string encrypted, std::map<char, int> & alpha,  string file_name){
 	while (i < encrypted.size()){
 
 		if(look(mapping, decrypted[i])){ //using the std find function){
-			cout <<" made it\n";
+			//cout <<" made it\n";
 			auto x = mapping.find(decrypted[i]);
 			decrypted[i] = char(x->second);
 			//cout << decrypted[i]<< " " << x->second;
