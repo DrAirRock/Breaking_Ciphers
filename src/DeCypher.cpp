@@ -13,7 +13,7 @@ int main ()
 		<<"->: ";
 	std::cin>>file;
 	clean = read(file);
-	std::map<char, int> freq = count_freq(clean); //edit the global alpha that is defined above you know where globals go
+	std::map<char, int> freq = count_freq(clean); 
 	write(clean, "clean.txt");
 	decrypt(clean, freq, "decrepted.txt");
 

@@ -16,28 +16,12 @@ using std::ofstream;
 
 // READ AND CLEAN THE DATA YOU PASS THE IN
 string read(string file_name){
-	//--------------------
-//	string encrypted;
 	int i=0;
 	bool isalph=0;
-	//------------------------
-
-	//ifstream inDat;
-	//inDat.open(file);
-
 	std::ifstream file(file_name.c_str());
        std::stringstream buffer;
        buffer << file.ifstream::rdbuf();
        std::string encrypted = buffer.str();
-
-	/*for(int i = 0 ; i < encrypted.length(); i++){
-		if(encrypted[i] == '\n'){
-			encrypted[i] = ' ';
-		}
-	}*/
-
-//	getline(inDat,encrypted); //takes what is in the file and saves it to a string called encrypted
-//	inDat.close();
 	while(i != (encrypted.length())) //this is to check to see that the you havent reached the end of the string
 	{
 		if(isalph == isalnum(encrypted[i]) && encrypted[i] != '\t' && encrypted[i] != '\n') //checks to see if a charicter is not alpha numeric if it is not then it replaces that part of the stirng with a space filtering out punction, however if puction was used in a subsituion my progrm would not be able to decrypt the information
@@ -54,18 +38,14 @@ string read(string file_name){
 void write(string str, string file_name){
 	ofstream outDat;
 	outDat.open(file_name);
-	outDat<<str;  //prints out cleaned string into a file called cleaned
+	outDat<<str;
 	outDat.close();
 	cout<<"Messeage stored in " << file_name << "\n";
 }
 
-
-//count the number of occurances of each letter in the file -> wirtes out to freq.txt
 std::map<char, int> count_freq (string encrypted){
 	cout << "\ncounting...\n";
 	int i=0;
-	int x=0;
-	int ch=97; /* ascii encoding of a */
 	bool isalph=0;
 	std::map <char, int> freq;
 	string bet="abcdefghijklmnopqrstuvwxyz"; //refrence string
@@ -100,29 +80,28 @@ bool look(std::map<char, char> & look, int value){
 //Decryption function here we go math well simple math but still
 void decrypt(string encrypted, std::map<char, int> & alpha,  string file_name){
 	cout <<"decrypting...\n";
-
 	string file = "./engFreq.txt";
 	string engFreq;
 	engFreq = "etaoinshrdlcumwfgypbvkjxqz";
 	std::reverse(engFreq.begin(), engFreq.end());
-	cout << engFreq <<"\n";
-	cout << engFreq[1];
+//	cout << engFreq <<"\n";
+//	cout << engFreq[1];
 	cout <<"reversed \n";
 	int i = 0;
 	std::map<char, char> mapping;
-	std::map<char, char> mapping_2;
+//	std::map<char, char> mapping_2;
 	std::map<int, char> revAlpha;
-	cout<<"debug flag 1\n";
+	//cout<<"debug flag 1\n";
 	std::map<char, int>::iterator itr_1;
 	std::map<int, char>::iterator itr_2;
-	std::map<char, char>::iterator itr_3;
-	std::map<char, char>::iterator itr_4;
-	cout<<"debug flag 2\n";
+	//std::map<char, char>::iterator itr_3;
+	//std::map<char, char>::iterator itr_4;
+	//cout<<"debug flag 2\n";
 	cout<<"mapping\n";
 
-	//This is reallly hacky code dont recamend
+	//This is reallly hacky code dont recamend doing it this way
 	int count = 0;
-	//swith key value pairs so it sorts by freqency
+	//swith key value pairs so it sorts by freqency and make sure there are no collisons -> they have to have some sort of order anyway
 	for(itr_1 = alpha.begin(); itr_1 != alpha.end(); itr_1++)
 	{
 		//TODO AVOID COLLISIONS
@@ -138,11 +117,11 @@ void decrypt(string encrypted, std::map<char, int> & alpha,  string file_name){
 		}
 
 		cout << itr_1->first << "   "  <<itr_1->second <<"\n";
-	   //cout<<count++;
 	}
 	cout<<std::endl;
 	count = 0;
 	i = 0;
+	//take the new map sorted by freqency and replace it with the string containing how freqently letters show up.
 	for(itr_2 = revAlpha.begin(); itr_2 != revAlpha.end() ; itr_2++)
 	{
 	   mapping[itr_2->second] = engFreq[i];
@@ -151,13 +130,14 @@ void decrypt(string encrypted, std::map<char, int> & alpha,  string file_name){
 	//	cout<<count++;
 	}
 
-	cout<<std::endl;
-
+/*
+	//this flips the map again because the find function looks for key and the mapping
 	for(itr_3 = mapping.begin(); itr_3 != mapping.end(); itr_3++)
 	{
 	   mapping_2[itr_3->second] = itr_3->first;
 	  // cout << itr_3->first << itr_3->second <<"\n";
 	}
+
 	cout<<std::endl;
 /*
 	for(itr_4 = mapping_2.begin(); itr_4 != mapping_2.end(); itr_4++)
