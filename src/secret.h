@@ -84,19 +84,12 @@ void decrypt(string encrypted, std::map<char, int> & alpha,  string file_name){
 	string engFreq;
 	engFreq = "etaoinshrdlcumwfgypbvkjxqz";
 	std::reverse(engFreq.begin(), engFreq.end());
-//	cout << engFreq <<"\n";
-//	cout << engFreq[1];
 	cout <<"reversed \n";
 	int i = 0;
 	std::map<char, char> mapping;
-//	std::map<char, char> mapping_2;
 	std::map<int, char> revAlpha;
-	//cout<<"debug flag 1\n";
 	std::map<char, int>::iterator itr_1;
 	std::map<int, char>::iterator itr_2;
-	//std::map<char, char>::iterator itr_3;
-	//std::map<char, char>::iterator itr_4;
-	//cout<<"debug flag 2\n";
 	cout<<"mapping\n";
 
 	//This is reallly hacky code dont recamend doing it this way
@@ -125,26 +118,9 @@ void decrypt(string encrypted, std::map<char, int> & alpha,  string file_name){
 	for(itr_2 = revAlpha.begin(); itr_2 != revAlpha.end() ; itr_2++)
 	{
 	   mapping[itr_2->second] = engFreq[i];
-	  // cout << itr_2->first  << "   "<< itr_2->second <<"\n";
 	   i++;
-	//	cout<<count++;
 	}
 
-/*
-	//this flips the map again because the find function looks for key and the mapping
-	for(itr_3 = mapping.begin(); itr_3 != mapping.end(); itr_3++)
-	{
-	   mapping_2[itr_3->second] = itr_3->first;
-	  // cout << itr_3->first << itr_3->second <<"\n";
-	}
-
-	cout<<std::endl;
-/*
-	for(itr_4 = mapping_2.begin(); itr_4 != mapping_2.end(); itr_4++)
-	{
-	   cout << itr_4->first << itr_4->second <<"\n";
-	}
-*/
 	cout<<std::endl;
 	i =0;
 	cout << "replacing stuff\n";
