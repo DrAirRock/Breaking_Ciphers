@@ -97,7 +97,7 @@ void decrypt(string encrypted, std::map<char, int> & alpha,  string file_name){
 	//swith key value pairs so it sorts by freqency and make sure there are no collisons -> they have to have some sort of order anyway
 	for(itr_1 = alpha.begin(); itr_1 != alpha.end(); itr_1++)
 	{
-		//TODO AVOID COLLISIONS
+		
 	   if(!look(revAlpha, (itr_1->second))){
 	 	   revAlpha[itr_1->second] = itr_1->first;
 		}else{
