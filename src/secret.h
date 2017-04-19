@@ -125,15 +125,16 @@ void decrypt(string encrypted, std::map<char, int> & alpha,  string file_name){
 	i =0;
 	cout << "replacing stuff\n";
 	string decrypted = encrypted;
+	
 	while (i < encrypted.size()){
 
-		if(look(mapping, decrypted[i])){ //using the std find function){
-			//cout <<" made it\n";
+		if(look(mapping, decrypted[i])){
+			
 			auto x = mapping.find(decrypted[i]);
 			decrypted[i] = char(x->second);
-			//cout << decrypted[i]<< " " << x->second;
+		
 		}else{ decrypted[i] = decrypted[i];}
-		//cout << i <<std::endl;
+
 		i++;
 	}
 
